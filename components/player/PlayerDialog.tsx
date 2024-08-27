@@ -1,5 +1,5 @@
-import { createPlayer, updatePlayer } from '@/utils/services/playerService';
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import { createPlayer, updatePlayer } from "@/utils/services/playerService";
+import React, { useState, ChangeEvent, FormEvent } from "react";
 
 interface Player {
   _id?: string;
@@ -20,16 +20,24 @@ interface PlayerDialogProps {
   player?: Player | null;
 }
 
-const PlayerDialog: React.FC<PlayerDialogProps> = ({ open, onClose, player }) => {
-  const [formData, setFormData] = useState<Player>(player || {
-    name: '',
-    dateOfBirth: '',
-    position: '',
-    statisticsId: -1,
-    trainingSessions: [],
-  });
+const PlayerDialog: React.FC<PlayerDialogProps> = ({
+  open,
+  onClose,
+  player,
+}) => {
+  const [formData, setFormData] = useState<Player>(
+    player || {
+      name: "",
+      dateOfBirth: "",
+      position: "",
+      statisticsId: -1,
+      trainingSessions: [],
+    }
+  );
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -39,7 +47,7 @@ const PlayerDialog: React.FC<PlayerDialogProps> = ({ open, onClose, player }) =>
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (player && player._id) {
-      await updatePlayer(player._id, formData);
+      await updatePlayer({ id: player._id, player: formData });
     } else {
       await createPlayer(formData);
     }
@@ -50,9 +58,14 @@ const PlayerDialog: React.FC<PlayerDialogProps> = ({ open, onClose, player }) =>
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
-      <div className="fixed inset-0 bg-black opacity-50" onClick={onClose}></div>
+      <div
+        className="fixed inset-0 bg-black opacity-50"
+        onClick={onClose}
+      ></div>
       <div className="bg-white p-6 rounded-lg shadow-lg z-10 w-full max-w-md">
-        <h2 className="text-xl font-semibold mb-4">{player ? 'Edit Player' : 'Add Player'}</h2>
+        <h2 className="text-xl font-semibold mb-4">
+          {player ? "Edit Player" : "Add Player"}
+        </h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-sm font-medium mb-1" htmlFor="name">
@@ -69,7 +82,10 @@ const PlayerDialog: React.FC<PlayerDialogProps> = ({ open, onClose, player }) =>
             />
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-medium mb-1" htmlFor="dateOfBirth">
+            <label
+              className="block text-sm font-medium mb-1"
+              htmlFor="dateOfBirth"
+            >
               Date of Birth:
             </label>
             <input
@@ -83,7 +99,10 @@ const PlayerDialog: React.FC<PlayerDialogProps> = ({ open, onClose, player }) =>
             />
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-medium mb-1" htmlFor="position">
+            <label
+              className="block text-sm font-medium mb-1"
+              htmlFor="position"
+            >
               Position:
             </label>
             <input

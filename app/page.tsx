@@ -4,6 +4,7 @@ import { createClient } from "@/utils/supabase/server";
 import ConnectSupabaseSteps from "@/components/tutorial/ConnectSupabaseSteps";
 import SignUpUserSteps from "@/components/tutorial/SignUpUserSteps";
 import Header from "@/components/Header";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 export default async function Index() {
   const canInitSupabaseClient = () => {
